@@ -1,15 +1,14 @@
 FROM ghcr.io/computestacks/cs-docker-base:ubuntu-focal
 
 LABEL maintainer="ComputeStacks <hello@computestacks.com>"
+LABEL org.opencontainers.image.authors="https://computestacks.com"
+LABEL org.opencontainers.image.source="https://github.com/ComputeStacks/cs-docker-xtrabackup/tree/main/8.0"
+LABEL org.opencontainers.image.url="https://github.com/ComputeStacks/cs-docker-xtrabackup/tree/main/8.0"
+LABEL org.opencontainers.image.title="Percona xtrabackup 8.0"
 
 RUN wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb \
     && dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb \
     && percona-release enable-only tools
-
-RUN export DEBIAN_FRONTEND=noninteractive \
-    && wget -O mysqlconfig.deb https://dev.mysql.com/get/mysql-apt-config_0.8.20-1_all.deb \
-    && echo mysql-apt-config mysql-apt-config/select-server select mysql-8.0 | debconf-set-selections \
-    && dpkg -i mysqlconfig.deb
 
 RUN set -ex; \
     \
